@@ -33,3 +33,5 @@ inc/
 /MANIFEST.bak
 /pm_to_blib
 /*.zip
+py-scrapy-urllib.sublime-project
+py-scrapy-urllib.sublime-workspace
