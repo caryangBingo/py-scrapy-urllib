@@ -35,3 +35,4 @@ inc/
 /*.zip
 py-scrapy-urllib.sublime-project
 py-scrapy-urllib.sublime-workspace
+.DS_Store
