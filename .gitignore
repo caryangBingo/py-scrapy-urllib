@@ -36,3 +36,5 @@ inc/
 py-scrapy-urllib.sublime-project
 py-scrapy-urllib.sublime-workspace
 .DS_Store
+py-scrapy.sublime-workspace
+py-scrapy.sublime-project
