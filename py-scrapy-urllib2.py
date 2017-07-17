@@ -5,22 +5,23 @@
 # @Link    : http://example.org
 # @Version : $Id$
 
-import os,io
+import os
+import io
 import sys
 import ssl
 import urllib.request
-from importlib import reload
+#from importlib import reload
 
-#第一个爬虫练习
+# 第一个爬虫练习
 """
 url= "http://www.baidu.com"
 data = urllib.request.urlopen(url).read()#
 #data = data.decode('UTF-8')
 print (data)
 """
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='gb18030')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-url = "http://www.douban.com/"
+url = "http://www.douban.com"
 request = urllib.request.Request(url)
 ssl._create_default_https_context = ssl._create_unverified_context
 responseurl = urllib.request.urlopen(request)
@@ -28,7 +29,7 @@ data = responseurl.read()
 data = data.decode('utf-8')
 
 print(data)
-print(type(responseurl))
-print(responseurl.geturl())
-print(responseurl.info())
-print(responseurl.getcode())
+# print(type(responseurl))
+# print(responseurl.geturl())
+# print(responseurl.info())
+# print(responseurl.getcode())
