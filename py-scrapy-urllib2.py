@@ -5,7 +5,7 @@
 # @Link    : http://example.org
 # @Version : $Id$
 
-import os
+import os,io
 import sys
 import ssl
 import urllib.request
@@ -18,11 +18,17 @@ data = urllib.request.urlopen(url).read()#
 #data = data.decode('UTF-8')
 print (data)
 """
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='gb18030')
 
 url = "http://www.douban.com/"
 request = urllib.request.Request(url)
 ssl._create_default_https_context = ssl._create_unverified_context
 responseurl = urllib.request.urlopen(request)
 data = responseurl.read()
-#data = data.decode('utf-8')
+data = data.decode('utf-8')
+
 print(data)
+print(type(responseurl))
+print(responseurl.geturl())
+print(responseurl.info())
+print(responseurl.getcode())
