@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Author: caryangBingo
 # @Date:   2017-07-17 22:06:51
-# @Last Modified by:   caryangBingo
-# @Last Modified time: 2017-07-17 23:50:32
+# @Last Modified by:   crazyang
+# @Last Modified time: 2017-07-18 10:30:31
 
 import os
 import io
@@ -66,7 +66,7 @@ def get_image(html):
             fp.write(image)
             num += 1
             # fp.close()
-            print('正在下载第%s张图片' % num)
+            print(u'正在下载第%s张图片' % num)
     return
 
 url = 'http://pic.yesky.com/180/99839180_2.shtml'
