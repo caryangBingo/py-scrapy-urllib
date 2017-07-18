@@ -9,7 +9,12 @@ import urllib.request
 import re
 import tool
 import os
+import sys
+import io
+import ssl
 import http.cookiejar
+
+#sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # 抓取MM
 
@@ -46,8 +51,7 @@ class Spider:
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                 'Accept-Language': 'zh-CN,zh;q=0.8',
                 # 此处填写浏览器发送的cookie数据，开发者模式可捕获
-                'cookie': 'thw=cn; v=0; _tb_token_=ed3e537eee38e; uc3=sg2=AVUmfqNnWoGPGTJ4gENbfZpe%2FkbplGialS%2FlXfLU08k%3D&nk2=rUePjBPFcJ1Zrg%3D%3D&id2=UoYdVU3Lb0nB&vt3=F8dBzWIGOl7d%2BZ7Huw0%3D&lg2=VFC%2FuZ9ayeYq2g%3D%3D; hng=CN%7Czh-cn%7CCNY; existShop=MTUwMDM2MDkwOQ%3D%3D; uss=AQYMPMd%2Fgu%2FdNnHcM9Cck94ecGXngi%2FSNj2ivY6jAYSJkWJDREv1jnCt; lgc=%5Cu65E0%5Cu60C5sv%5Cu6E29%5Cu67D4; tracknick=%5Cu65E0%5Cu60C5sv%5Cu6E29%5Cu67D4; skt=d68cfa4bb9340384; publishItemObj=Ng%3D%3D; _cc_=Vq8l%2BKCLiw%3D%3D; tg=0; mt=ci=0_1; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; whl=-1%260%260%261500361082762; cookie2=10863069964cb17db9cda91427d47e70; t=43b75585f7c1257a4a553d3c9647eaa1; cna=; JSESSIONID=928FD6C2A2B4AD512C246E03B1060B5C; uc1=cookie14=UoTcDzH4%2Be4stQ%3D%3D; isg=AnV1INOGQFmuPKTvZ7zvm_3yhPHvWiPCg88wb_eadOwxzpXAv0I51INOZKSD',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'
+                'cookie': '_med=dw:1440&dh:900&pw:1440&ph:900&ist:0; hng=CN%7Czh-cn%7CCNY; l=Avz8CTb/4Sonknvt6ZpgnJGETJGu9aAf; thw=cn; v=0; _tb_token_=331eae668eea7; uc3=sg2=AVUmfqNnWoGPGTJ4gENbfZpe%2FkbplGialS%2FlXfLU08k%3D&nk2=rUePjBPFcJ1Zrg%3D%3D&id2=UoYdVU3Lb0nB&vt3=F8dBzWIGOEUPFx5dvRc%3D&lg2=Vq8l%2BKCLz3%2F65A%3D%3D; existShop=MTUwMDM4NzY0Mw%3D%3D; uss=Aidjwg%2BmloINTczMVbNSS%2Bs3mYn%2FxxoplB97dDkzDqYP2brWenzqwFdb; lgc=%5Cu65E0%5Cu60C5sv%5Cu6E29%5Cu67D4; tracknick=%5Cu65E0%5Cu60C5sv%5Cu6E29%5Cu67D4; cookie2=1cbd630df3ebb2606f74215cbc6276ed; sg=%E6%9F%9473; cookie1=UNdcpmo%2BQaBArTzJmtyIaffnxNJIdkKDTzovaBBvsM8%3D; unb=173854007; skt=313ff57f3412186a; t=22f11ea4db3ab1f8b2ee94fef3ed5d69; publishItemObj=Ng%3D%3D; _cc_=V32FPkk%2Fhw%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=%5Cu65E0%5Cu60C5sv%5Cu6E29%5Cu67D4; cookie17=UoYdVU3Lb0nB; cna=oHwND06SwQgCAXtiYO/Bk6JU; mt=ci=0_1; uc1=cookie14=UoTcDzH2bYixTQ%3D%3D&lng=zh_CN&cookie16=V32FPkk%2FxXMk5UvIbNtImtMfJQ%3D%3D&existShop=false&cookie21=WqG3DMC9Fbxq&tag=8&cookie15=W5iHLLyFOGW7aA%3D%3D&pas=0; isg=AgkJZFW4tNbOx0a3lvf5wnwOGDOj_hz3DrYCRqt-g_Av8ikE86YNWPegSmA_'
         }):
             cookie = http.cookiejar.CookieJar()
             opener = urllib.request.build_opener(
@@ -61,6 +65,7 @@ class Spider:
 
         oper = makeMyOpener()
         uop = oper.open(infoURL)
+        ssl._create_default_https_context = ssl._create_unverified_context
         data = uop.read().decode('gbk')
         return data
         # response = urllib.request.urlopen(infoURL)
