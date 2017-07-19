@@ -17,8 +17,6 @@ import http.cookiejar
 #sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # 抓取MM
-
-
 class Spider:
 
     # 页面初始化
