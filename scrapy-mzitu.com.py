@@ -15,7 +15,7 @@ class mzitu():
     def all_url(self, url):
         html = self.request(url)  # 调用request函数把套图地址传进去会返回给我们一个response
         all_a = BeautifulSoup(html.text, 'lxml').find(
-            'div', class_='all').find_all('a')
+            'div', class_='postlist').find_all('a')
         for a in all_a:
             title = a.get_text()
             print(u'开始保存：', title)  # 加点提示不然太枯燥了
@@ -50,13 +50,13 @@ class mzitu():
     def mkdir(self, path):  # 这个函数创建文件夹
         path = path.strip()
         isExists = os.path.exists(os.path.join(
-            "D:\mzitu.com", path))
+            "E:\mzitu.com", path))
         if not isExists:
             print(u'建了一个名字叫做', path, u'的文件夹！')
             os.makedirs(os.path.join(
-                "D:\mzitu.com", path))
+                "E:\mzitu.com", path))
             os.chdir(os.path.join(
-                "D:\mzitu.com", path))  # 切换到目录
+                "E:\mzitu.com", path))  # 切换到目录
             return True
         else:
             print(u'名字叫做', path, u'的文件夹已经存在了！')
@@ -70,4 +70,4 @@ class mzitu():
 
 Mzitu = mzitu()  # 实例化
 # 给函数all_url传入参数  你可以当作启动爬虫（就是入口）
-Mzitu.all_url('http://www.mzitu.com/xingan')
+Mzitu.all_url('http://www.mzitu.com/xinggan')
