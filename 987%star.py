@@ -22,7 +22,7 @@ class pf_photo(object):
         start_html = self.requests(xStar_url)
         post_Soup = BeautifulSoup(start_html.text, 'lxml')
         list_url = post_Soup.find('div', class_='con_list').find_all('a')
-        for lts in list_url:
+        for lts in list_url[1:3]:
             # title = lts.get_text().encode('utf-8')
             title += 1
             print(u'开始保存第%s个妹子：' % title)
@@ -73,7 +73,7 @@ class pf_photo(object):
         isExists = os.path.exists(os.path.join(
             "/Users/Caryang/Pictures/mzitu.com", path))
         if not isExists:
-            print(u'建了一个名字为：', path, u'的妹子文件目录')
+            print(u'建立一个名为：', path, u'的妹子文件目录')
             os.makedirs(os.path.join(
                 "/Users/Caryang/Pictures/mzitu.com", path))
             os.chdir(os.path.join(
@@ -94,7 +94,7 @@ class pf_photo(object):
                    #'Cookie': ''
                    }
         content = requests.get(load_url, headers=headers)
-   %     return content
+        return content
 
 pf_photo = pf_photo()
 home_url = ''
