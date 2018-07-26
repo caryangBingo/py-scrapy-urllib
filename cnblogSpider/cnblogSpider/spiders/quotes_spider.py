@@ -8,20 +8,22 @@
 import scrapy
 
 
-class QuotesSpider(scrapy.Spider):
+class CnblogsSpider(scrapy.Spider):
     name = "quotes"
+    allowed_domains = ["cnblogs.com"]
 
-    def start_requests(self):
-        urls = [
-            'http://quotes.toscrape.com/page/1/',
-            'http://quotes.toscrape.com/page/2/',
-        ]
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+    start_urls = [
+        'http://www.cnblogs.com/qiyeboy/default.html?page=1',
+    ]
 
     def parse(self, response):
-        page = response.url.split("/")[-2]
-        filename = 'quotes-%s.html' % page
-        with open(filename, 'wb') as fp:
-            fp.write(response.body)
-        self.log('Saved file %s' % filename)
+        papers = response.xpath(".//*[@class='day']")
+
+        for paper in papers:
+            url = paper.xpath(".//*[@class='postTitle']/a/@href").extract()[0]
+            title = paper.xpath(
+                ".//*[@class='postTitle']/a/text()").extract()[0]
+            time = paper.xpath(".//*[@class='dayTitle']/a/text()").extract()[0]
+            content = paper.xpath(
+                ".//*[@class='postTitle']/a/text()").extract()[0]
+            print(url, title, time, content)
