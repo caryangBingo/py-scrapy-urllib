@@ -6,6 +6,9 @@
 # @Software   : Sublime Text3
 
 import scrapy
+import re
+from scrapy import Selector
+from cnblogSpider.items import CnblogspiderItem
 
 
 class CnblogsSpider(scrapy.Spider):
@@ -26,4 +29,17 @@ class CnblogsSpider(scrapy.Spider):
             time = paper.xpath(".//*[@class='dayTitle']/a/text()").extract()[0]
             content = paper.xpath(
                 ".//*[@class='postTitle']/a/text()").extract()[0]
-            print(url, title, time, content)
+            item = CnblogspiderItem(
+                url=url, title=title, time=time, content=content)
+            request = scrapy.Request(url, callback=self.parse_body)
+            request.meta['item'] = item
+            yield request
+        next_page = Selector(response).re(u'<a href="(\\S*)">下一页</a>')
+        if next_page:
+            yield scrapy.Request(url=next_page[0], callback=self.parse)
+
+    def parse_body(self, response):
+        item = response.meta['item']
+        body = response.xpath(".//*[@class='postBody']")
+        item['cimage_urls'] = body.xpath('.//img//@src').extract()
+        yield item
